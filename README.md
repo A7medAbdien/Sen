@@ -31,9 +31,21 @@ Camera framing is the placement and position of the subjects in your shots. Shot
 
 [Body Tracking issues](https://stackoverflow.com/questions/57389303/is-there-any-way-to-detect-body-parts-from-vuforia)
 
+1. find resources
+2. understand the code
+3. implementation
+
 ## Project 5: Place an object on human body and measure the distance
 
 1. Intro for how the cams work, light and frames
 2. Fragment
 3. Spinner and Array adapter
 4. TableLayout
+
+### Tasks - Thu 20Oct - Mon 17Oct 5pm
+
+Ahmed: Understanding the P1
+
+ALi: P2 step 1 and 2
+
+Mahdi: Intro, abstract, review
