@@ -21,6 +21,11 @@ Camera Framing Definition
 
 Camera framing is the placement and position of the subjects in your shots. Shots are all about composition. Rather than pointing the camera at the subject, you need to compose an image
 
+## Project 1.2: Build an app that when detect the image shows the distance
+
+1. detect the image, [link](https://www.youtube.com/watch?v=GiLra7jntsk&t=6s)
+2. manipulate the code
+
 ## Project 2: Build duplicate images detected until the detection process
 
 [shibui Yusuke](https://shibuiyusuke.medium.com/)
