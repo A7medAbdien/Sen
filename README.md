@@ -16,9 +16,6 @@ features points -> understand the nature of the object/surface -> pose
 
 Poses can change as ARCore improves its understanding of its own position and its environment -> anchor
 
-What is frame in camera?
-Camera Framing Definition
-
 Camera framing is the placement and position of the subjects in your shots. Shots are all about composition. Rather than pointing the camera at the subject, you need to compose an image
 
 ## Project 1.2: Build an app that when detect the image shows the distance
@@ -40,12 +37,18 @@ Camera framing is the placement and position of the subjects in your shots. Shot
 2. understand the code
 3. implementation
 
+### Project 4.1: Place object on human face
+
 ## Project 5: Place an object on human body and measure the distance
 
-1. Intro for how the cams work, light and frames
-2. Fragment
-3. Spinner and Array adapter
-4. TableLayout
+---
+
+## Report
+
+* Into.
+* literature review
+* What is frame in camera and function related to AR? (Thu)
+* Camera Framing Definition
 
 ### Tasks - Thu 20Oct - Mon 17Oct 5pm
 
