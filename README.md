@@ -23,6 +23,15 @@ Camera framing is the placement and position of the subjects in your shots. Shot
 1. detect the image, [link](https://www.youtube.com/watch?v=GiLra7jntsk&t=6s)
 2. manipulate the code
 
+### issues
+
+all attempts to create an Ar project form the scratch failed,
+more understanding for gradle files is needed.
+
+### solutions
+
+use the existing AR project, EasyLearn as a template, but the code will be just in java
+
 ## Project 2: Build duplicate images detected until the detection process
 
 [shibui Yusuke](https://shibuiyusuke.medium.com/)
