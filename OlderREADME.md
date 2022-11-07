@@ -28,6 +28,12 @@ Camera framing is the placement and position of the subjects in your shots. Shot
 all attempts to create an Ar project form the scratch failed,
 more understanding for gradle files is needed.
 
+Projects used:
+
+1. AR Core hello world (Java and Kotlin)
+2. EasyLearn, place an object on tab (Java)
+3. Measure the distance (Kotlin)
+
 ### solutions
 
 use the existing AR project, EasyLearn as a template, but the code will be just in java
