@@ -1,3 +1,37 @@
+## still 👎
+* 4 REQUIREMENT COLLECTION AND ANALYSIS 🥈
+    1. Interview
+    2. Persona
+    3. USU
+* 6 SYSTEM IMPLEMENTATION (multi-pose)
+    1. tensorflow-hub
+    2. opencv
+    3. flask
+* 3 PROJECT MANAGEMENT
+    * Project plan activity
+    * Single image
+
+1.	INTRODUCTION - 7
+2.	LITERATURE REVIEW - 6
+3.	PROJECT MANAGEMENT - 5
+4.	REQUIREMENT COLLECTION AND ANALYSIS 🥈
+5.	SYSTEM DESIGN 👍
+    1. live stream (Sequence/Use case) diagram 👍
+6.	SYSTEM IMPLEMENTATION - 3 👍
+    * on in
+      1. dev:
+         1. CameraX Use Case
+         2. ML Kit Object detection, tracking and rendering
+         3. Distance measurement
+7.	TESTING - 4 👍
+8.	CONCLUSION AND FUTURE WORK - 7
+
+8 paraphrase
+
+- alert
+- actual distance
+
+# sys des
 Figure X shows the four main objects used in the Measuring distance application. All four objects depend on user events. The system application is the main logic that controls the application settings, permissions, and what the user sees. The camera object is responsible for accessing and communicating with the device camera. The detector object is responsible for detecting extracted features and getting their orientation in the image. The renderer object is responsible for calculating the distance between the detected object and the camera device and draw lines on detected person.
 
 Step 1: The user touches the screen to start the application.
@@ -12,37 +46,7 @@ Step 8: If there is a detected object, The renderer draws lines on the detected 
 Start Camera: The user start the camera device and it measure the distance between the detected object and the camera. The user can show lines between person poses and current distance between the detected person on this person. The user can show the detection information, like frame rate, image size and detection latency. If the current distance between the detected person and the camera is less than the safe distance, an alert will be shown.
 Change Settings: The user can hide detection information, lines between person poses and the current distance that rendered on the detected person. The user can use the device GPU rather then CPU.
 
-## still 👎
-* REQUIREMENT COLLECTION AND ANALYSIS 🥈
-    1. Interview
-    2. Persona
-    3. USU
-* SYSTEM DESIGN
-    1. single image
-* SYSTEM IMPLEMENTATION
-    1. tensorflow-hub
-    2. opencv
-    3. flask
-
-1.	INTRODUCTION - 7
-2.	LITERATURE REVIEW - 6
-3.	PROJECT MANAGEMENT - 5
-4.	REQUIREMENT COLLECTION AND ANALYSIS 🥈
-5.	SYSTEM DESIGN 👍
-    1. live stream (Sequence/Use case) diagram 👍
-6.	SYSTEM IMPLEMENTATION - 3
-    * on in
-      1. dev:
-         1. CameraX Use Case
-         2. ML Kit Object detection, tracking and rendering
-         3. Distance measurement
-7.	TESTING - 4
-8.	CONCLUSION AND FUTURE WORK - 7
-
-8 paraphrase
-
-- alert
-- actual distance
+# sys imp
 
 1. CameraX Use Case
 
@@ -540,3 +544,69 @@ In order to calculate the distance between the camera and detected person, we ca
 The railroad ties appear to get smaller as they get further away from us.If we measured the apparent size of each railroad tie, their measured size would decrease in proportion to their distance from our eyes. The same thing happens to the distance between shoulders and hips. 
 In order to calculate the distance between the camera and detected person, we calculate the distance between the shoulders and hips. We could use the pupillary distance (PD), the distance between the centers of your pupils, since it is fixed as the detected person moves, but it will be affected if the detected person did not face the camera. We used the distance between the shoulders and hips, considering if the detected person rotated.
 We get the average of the distance right side and left one, then using a polynomial equation we get how far the detected person is from the camera. The coefficients of the polynomial equation calculate by measuring the size of landmarks, distance between shoulders and hips, to how far a person form the device camera.
+
+# Testing
+
+## Unit testing
+
+1. the application asks for permissions
+2. the user can start the camera
+3. the user can see a stream of camera images
+4. the application can detect pose body
+5. the application can render landmarks
+6. the application can show the alert massage
+7. the application can measure how far the detected person is from the camera
+8. the user can access settings
+9. edit the safe distance
+10. the user can render the distance on detected person
+11. the user can stop rendering landmarks
+12. the user can use GPU instead of CPU
+
+## 
+
+asks for permissions
+start the camera
+stream camera images
+detect a person
+render landmarks
+render the current distance on detected person
+show the alert massage
+access settings
+edit the safe distance
+render the distance on detected person
+stop rendering landmarks
+use GPU instead of CPU
+close the camera
+
+
+The application asks for camera and internet permissions, it will shows a pop-up window to get the user approval.
+when the user click on start the application camera, the application will take the user to the CameraX activity.
+The CameraX activity will show a stream of images of the current scene.
+the application shows a massage when a person got detected
+the application renders landmarks between shoulders and hips on the detected person
+the application renders the current distance between the detected person and the camera
+the application shows an alert massage when the person violate the safe distance
+when the user clicks on settings icon, the application will take the user to the settings activity
+the user should be able to change the safe distance
+the user should be able to control showing landmarks
+the user should be able to control showing the current distance on detected person
+the user should be able to control using the device GPU instead of CPU.
+when the user clicks on close the camera, the application will take the user back to the entry activity
+
+
+# Project Management
+
+The project was proposed and given a total of 6 months to be implemented. As such, a Spiral Software Development Life Cycle model was chosen to be followed throughout the project’s development. Each cycle of the Spiral Model is divided into four phases: Planning, Design, construction and evaluation. The reason for adopting the spiral model is that the tools for implementing this project were unclear and the spiral approach, is a risk-driven process model (Boehm and Hansen, 2000). 
+
+We implemented the project over five cycles if the spiral model. The first cycle covered the low fidelity prototype and the second cycle covered the high fidelity prototype, both low and high fidelity prototypes will be discussed in chapter 4. the third cycle covered an application that detect on single image, this application will be discussed in the next section. The last cycle covered an application that detection on image stream.
+
+
+1. Not on schedule
+2. Unmet requirements
+3. Data loss
+4. Underestimating the time required to learn the needed tools
+5. Tools are not integrable
+6. Tools are no longer supported
+
+
+broken down into small iterative increments called sprints. During each sprint, the team comes together to collaborate, implement a part of the solution, then introduce new functionalities to the system or change them. 
