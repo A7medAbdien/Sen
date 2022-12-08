@@ -4,16 +4,16 @@
     2. Persona
     3. USU
 * 6 SYSTEM IMPLEMENTATION (multi-pose)
-    1. tensorflow-hub
-    2. opencv
-    3. flask
-* 3 PROJECT MANAGEMENT
-    * Project plan activity
-    * Single image
+    7.	ARCore
+    8.	SceneForm
+    9.	OpenGL
+    10.	OpenCV
+    11.	TensorFlow-hub
+    12.	Flusk
 
 1.	INTRODUCTION - 7
 2.	LITERATURE REVIEW - 6
-3.	PROJECT MANAGEMENT - 5
+3.	PROJECT MANAGEMENT 👍
 4.	REQUIREMENT COLLECTION AND ANALYSIS 🥈
 5.	SYSTEM DESIGN 👍
     1. live stream (Sequence/Use case) diagram 👍
@@ -30,6 +30,37 @@
 
 - alert
 - actual distance
+
+
+
+requirement collection 2w
+sys design 1w
+sys implementation
+learning tools 6w
+applications development 2w
+applications testing 1w
+writing report 1w
+prepare presentation 5d
+
+The project activity plan is a list of the project activities and an approximation of their start and
+end date. This gives the team, a clear path to follow and an idea based on approximation on
+how much time would each activity requires.
+
+the project activity plan is how to complete a project in a certain timeframe, by dividing it into activities with approximated start and end dates. The project activity plan worked as an indicator for any potential risk, when an activity exceeded its estimated time. It helped in balance between applying the main functionality and enhancing an existing one.
+
+# sys imp
+
+We implemented three versions of the application. The first application differs from the other in the way that it understands the environment and measures the distance, which will be discussed in section 6.4. The difference between the other two applications is that one is a web-based application and the other is an Android application.
+
+In order to solve the problem in the given period of time, we break the main problem into smaller problems:
+1. measuring distance between the device camera and any other point in the scene
+2. detect human body
+3. integrate human body detector and measuring distance.  
+
+This is first version of the application. It is an Android application. We tried to measure the distance between the camera and any point in the scene using ARCore and SceneForm, and this approach measures the distance based on a 3D understanding of the environment. 
+We used the ML Kit Pose detection to detect the human body, and it is the same tool that will be used in the other versions of the application.
+Integrating the ARCore part with ML Kit part will require an understanding of managing the ARcore inputs, images, and passing them to the ML Kit part. One of the approaches was to use OpenGL. We were able to implement this approach on a single image, but we could not implement it on a stream of images. One of the main characteristics of java language is that it uses a garbage collector so we have to save the image buffer into the heap. It seems that applying the detection on a stream of images is possible but will require more understanding of OpenGL. Learning OpenGL exceeded the estimated time and considering the risks effects and strategies, we adopted another approach.
+
 
 # sys des
 Figure X shows the four main objects used in the Measuring distance application. All four objects depend on user events. The system application is the main logic that controls the application settings, permissions, and what the user sees. The camera object is responsible for accessing and communicating with the device camera. The detector object is responsible for detecting extracted features and getting their orientation in the image. The renderer object is responsible for calculating the distance between the detected object and the camera device and draw lines on detected person.
@@ -115,6 +146,33 @@ private fun bindAnalysisUseCase() {
     cameraProvider!!.bindToLifecycle(/* lifecycleOwner= */ this, cameraSelector!!, analysisUseCase)
 }
 ```
+
+2. OpenCV
+
+We create an instance of OpenCV with a specified camera lens that allows accessing the current frame and processing it. After processing the frame, we save it as a buffer and yield it to the front end. we use yield since we return a value continuously while executing the function and this value is only needed once.
+
+```py
+
+def generate_frames():
+    while camera.isOpened():
+
+        # read the camera frame
+        success, frame = camera.read()
+
+        # When the camera unable to read the frame
+        if not success:
+            break
+            
+        # process frame and render the landmarks
+        
+        # Render the frame
+        buffer = cv2.imencode('.jpg', frame)[1]
+        frame = buffer.tobytes()
+
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+``` 
 
 ## ML Kit Object detection, tracking and rendering
 
@@ -534,10 +592,56 @@ internal constructor(
 }
 ```
 
-We can access the device camera capabilities using CameraX library. One of the most common use cases is Preview use case 
+We load the Movnet model using TensorFlow-hub API. Movenet Multi-pose Lightning model is a convolutional neural network model that predicts the human pose locations of people in the image. The model was designed to be run in the browse (Tfhub.dev, 2022). Then we process the image to fit the Movnet model input specification using TensorFlow API. After passing the frame to the Movnet detector we get the orientation of the detected poses for each person in the frame. We use those orientations to draw and render points and landmarks on the detected person using OpenCV API.
 
-1. Object detection and tracking
-2. Distance measurement
+```py
+def process_image(frame):
+    # Resize image
+    img = frame.copy()
+    img = tf.image.resize_with_pad(tf.expand_dims(img, axis=0), 384, 640)
+    input_img = tf.cast(img, dtype=tf.int32)
+
+    results = movenet(input_img)
+    keypoints_with_scores = results['output_0'].numpy()[
+        :, :, :51].reshape((6, 17, 3))
+
+    # Render keypoints and landmarks
+    loop_through_people(frame, keypoints_with_scores, EDGES, 0.1)
+    
+def loop_through_people(frame, keypoints_with_scores, edges, confidence_threshold):
+    for person in keypoints_with_scores:
+        draw_connections(frame, person, edges, confidence_threshold)
+        draw_keypoints(frame, person, confidence_threshold)
+
+# Draw Keypoints
+
+
+def draw_keypoints(frame, keypoints, confidence_threshold):
+    y, x, c = frame.shape
+    shaped = np.squeeze(np.multiply(keypoints, [y, x, 1]))
+
+    for kp in shaped:
+        ky, kx, kp_conf = kp
+        if kp_conf > confidence_threshold:
+            cv2.circle(frame, (int(kx), int(ky)), 6, (0, 255, 0), -1)
+
+
+def draw_connections(frame, keypoints, edges, confidence_threshold):
+    y, x, c = frame.shape
+    shaped = np.squeeze(np.multiply(keypoints, [y, x, 1]))
+
+    for edge, color in edges.items():
+        p1, p2 = edge
+        y1, x1, c1 = shaped[p1]
+        y2, x2, c2 = shaped[p2]
+
+        if (c1 > confidence_threshold) & (c2 > confidence_threshold):
+            cv2.line(frame, (int(x1), int(y1)),
+                     (int(x2), int(y2)), (0, 0, 255), 4)
+            # Measure the distance
+```
+
+## Distance measurement
 
 In order to calculate the distance between the camera and detected person, we calculate the distance between the shoulders and hips. When the user will be closer to the camera this distance will be bigger and as the user gets farther the distance between the shoulder and hips will get smaller. The image shows how the distance between two point on an object changes compare to its position in the real world.
 
