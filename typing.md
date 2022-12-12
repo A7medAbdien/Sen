@@ -874,3 +874,11 @@ when the user clicks on close the camera, the application will take the user bac
 # 8 conc
 
 To conclude, this project delivers three applications that can measure the distance between the device camera and the detected person. The project aims to help users to keep a predefined distance between people around them. The project presented two approaches for measuring the distance using the device camera. The first approach is based on 3 dimensional understanding of the environment. The second approach is based on 2 dimensional understanding of the image. During this project, two applications were developed for Android devices, and another application was developed using the Flask framework. This experience was a great opportunity to use and contribute to a bigger journey of promising technology such as Augmented reality. 
+
+# remains
+
+ARCore
+ARCore, also known as 'Google Play Services for AR', is a Google software development kit that allows developers to create augmented reality apps. It was first launched in 2018 and since then has made its way to a lot of smartphones far and wide from several manufacturers. ARCore uses simultaneous localization and mapping, or SLAM, to understand where the phone is exactly relative to the world around it. It manages to compute changes in location by detecting visually distinct features in the captured camera image and then using that as feature points to know if it changed location and the features of that location. It uses these feature points to detect planes or horizontal/vertical surfaces and uses that for additional context.
+
+Sceneform, the 3D rendering library for building AR applications on Android. Sceneform is a 3D framework with a physically based renderer that's optimized for mobile devices and that makes it easy for you to build augmented reality apps without requiring OpenGL(google-ar, 2020).
+
